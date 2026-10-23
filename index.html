@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aurora School · Алтан Гадас сургууль</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f4ff;--text:#14122b;--muted:#6a6788;--card:rgba(255,255,255,.72);--line:rgba(80,60,200,.12);--a1:#6d4aff;--a2:#ff6bb5;--a3:#ffb84d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0b1e;--text:#f1efff;--muted:#a9a5cc;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.1)}}
+:root[data-theme="dark"]{--bg:#0d0b1e;--text:#f1efff;--muted:#a9a5cc;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.65;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.4;z-index:-1;pointer-events:none}
+.b1{width:420px;height:420px;background:var(--a1);top:-120px;left:-100px}.b2{width:360px;height:360px;background:var(--a2);top:300px;right:-120px}.b3{width:300px;height:300px;background:var(--a3);bottom:-100px;left:30%;opacity:.28}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.top{background:linear-gradient(90deg,var(--a1),var(--a2));color:#fff;font-size:.82rem;padding:7px 0}
+.top .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:var(--card);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;height:66px}
+.logo{font-weight:800;display:flex;align-items:center;gap:10px}
+.dot{width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,var(--a1),var(--a2))}
+nav a{margin-left:20px;color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:600;transition:color .2s}nav a:hover{color:var(--a1)}
+.btn{display:inline-block;padding:13px 26px;background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;border:0;border-radius:14px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 10px 28px -8px var(--a1);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}.btn.ghost{background:var(--card);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.sm{padding:9px 18px;font-size:.88rem}
+.hero{padding:96px 0 64px;text-align:center}
+.tag{display:inline-block;padding:6px 14px;border:1px solid var(--line);background:var(--card);border-radius:99px;font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:20px}
+.hero h1{font-size:clamp(2.3rem,7vw,4.3rem);line-height:1.08;margin:0 0 16px;font-weight:800;letter-spacing:-.02em}
+.grad{background:linear-gradient(90deg,var(--a1),var(--a2),var(--a3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:540px;margin:0 auto 28px;font-size:1.1rem}.hero .btn{margin:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .25s}.card:hover{transform:translateY(-4px)}
+.stat{text-align:center}.stat b{display:block;font-size:2.1rem;font-weight:800}.stat span{color:var(--muted);font-size:.9rem}
+section{padding:60px 0}h2{font-size:clamp(1.6rem,4vw,2.1rem);margin:0 0 6px;font-weight:800;letter-spacing:-.01em}.sub{color:var(--muted);margin:0 0 28px}
+.icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px;background:linear-gradient(135deg,var(--a1),var(--a2))}
+.card h3{margin:0 0 6px;font-size:1.1rem}.card p{margin:0;color:var(--muted);font-size:.94rem}
+.chip{display:inline-block;margin-top:12px;padding:3px 12px;border-radius:99px;background:var(--line);font-size:.78rem;font-weight:600}
+.av{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.3rem;color:#fff;margin-bottom:12px}
+.g{height:130px;border-radius:16px;display:grid;place-items:center;font-size:2.2rem}
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.ev{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+.date{min-width:64px;text-align:center;border-radius:14px;padding:8px;background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;line-height:1.2}.date b{display:block;font-size:1.4rem}.date span{font-size:.75rem}
+details{margin-bottom:10px}summary{cursor:pointer;font-weight:700;list-style:none}summary::after{content:"+";float:right;color:var(--a1)}details[open] summary::after{content:"–"}
+details p{margin-top:10px}
+#join{max-width:440px;margin:0 auto}#join input{width:100%;padding:14px 16px;margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);font:inherit}
+#join input:focus{outline:2px solid var(--a1);border-color:transparent}#joinMsg{font-size:.9rem;min-height:1.4em;margin-top:10px;color:var(--a1);font-weight:600}
+.courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:4px 0 14px}
+.courses label{position:relative;cursor:pointer}
+.courses input{position:absolute;opacity:0;width:0;height:0;margin:0}
+.courses span{display:block;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:.88rem;font-weight:600;text-align:center;transition:.2s}
+.courses label:hover span{border-color:var(--a1)}
+.courses input:checked+span{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;border-color:transparent}
+.courses input:focus-visible+span{outline:2px solid var(--a1);outline-offset:2px}
+.lbl{font-size:.85rem;font-weight:700;margin:4px 0 8px}.lbl small{color:var(--muted);font-weight:400}
+.hidden{display:none}
+footer{border-top:1px solid var(--line);padding:40px 0 24px;color:var(--muted);font-size:.9rem}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-bottom:24px}
+footer h4{color:var(--text);margin:0 0 10px}footer a{display:block;color:var(--muted);text-decoration:none;margin-bottom:6px}footer a:hover{color:var(--a1)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
+@media (max-width:760px){nav a{display:none}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="top"><div class="wrap"><span>📞 +976 7000 0000</span><span>✉️ info@school.mn · Даваа–Баасан 08:00–18:00</span></div></div>
+<header><div class="wrap">
+  <div class="logo"><div class="dot"></div><div style="line-height:1.1">AURORA SCHOOL<br><small style="font-weight:600;font-size:.62rem;color:var(--muted);letter-spacing:.06em">АЛТАН ГАДАС СУРГУУЛЬ</small></div></div>
+  <nav><a href="#about">Тухай</a><a href="#programs">Хөтөлбөр</a><a href="#teachers">Багш нар</a><a href="#news">Мэдээ</a><a href="#gallery">Галерей</a><a href="#faq">Асуулт</a><a class="btn sm" href="#join" style="display:inline-block;color:#fff">Бүртгүүлэх</a></nav>
+</div></header>
+
+<div class="wrap">
+  <div class="hero reveal">
+    <span class="tag">✨ 2026–2027 оны бүртгэл нээлттэй</span>
+    <h1>Ирээдүйгээ <span class="grad">бидэнтэй</span> бүтээ</h1>
+    <p>Сурагч бүрийн чадварыг нээж, өөртөө итгэлтэй, чадварлаг иргэн болгон хүмүүжүүлнэ.</p>
+    <a class="btn" href="#join">Бүртгүүлэх →</a><a class="btn ghost" href="#about">Дэлгэрэнгүй</a>
+  </div>
+  <div class="grid reveal" style="margin-bottom:20px">
+    <div class="card stat"><b>1–12</b><span>анги</span></div><div class="card stat"><b>48</b><span>багш</span></div>
+    <div class="card stat"><b>1,200+</b><span>сурагч</span></div><div class="card stat"><b>35</b><span>жилийн түүх</span></div>
+  </div>
+
+  <section id="about" class="reveal"><h2>Бидний тухай</h2><p class="sub">Орчин үеийн боловсролын орчин, мэргэшсэн баг.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">🎯</div><h3>Эрхэм зорилго</h3><p>Чанартай боловсрол олгож, сурагч бүрийг хөгжүүлэх.</p></div>
+      <div class="card"><div class="icon">👁️</div><h3>Алсын хараа</h3><p>Монголдоо тэргүүлэх, олон улсад өрсөлдөх сургууль болох.</p></div>
+      <div class="card"><div class="icon">💎</div><h3>Үнэт зүйл</h3><p>Хүндлэл, шудрага байдал, хамтын ажиллагаа, сурах хүсэл.</p></div>
+    </div></section>
+
+  <section id="programs" class="reveal"><h2>Хөтөлбөр</h2><p class="sub">Насны онцлогт тохирсон гурван шат.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">🧸</div><h3>Бага анги</h3><p>Уншиж, бичиж, тоолж сурах суурь. Тоглоомоор суралцах арга.</p><span class="chip">1–5 анги</span></div>
+      <div class="card"><div class="icon">🔬</div><h3>Дунд анги</h3><p>Шинжлэх ухаан, хэл, технологийн гүнзгийрүүлсэн хичээл.</p><span class="chip">6–9 анги</span></div>
+      <div class="card"><div class="icon">🎓</div><h3>Ахлах анги</h3><p>Элсэлтийн шалгалт, мэргэжил сонголтын бэлтгэл.</p><span class="chip">10–12 анги</span></div>
+    </div></section>
+
+  <section id="teachers" class="reveal"><h2>Манай багш нар</h2><p class="sub">Туршлагатай, сурагчдаа хайрладаг баг.</p>
+    <div class="grid">
+      <div class="card"><div class="av" style="background:linear-gradient(135deg,#6d4aff,#9c7bff)">Б</div><h3>Б. Болормаа</h3><p>Захирал · Боловсролын ухааны магистр</p></div>
+      <div class="card"><div class="av" style="background:linear-gradient(135deg,#ff6bb5,#ff9ad0)">Э</div><h3>Э. Энхтүвшин</h3><p>Математикийн багш · 15 жил</p></div>
+      <div class="card"><div class="av" style="background:linear-gradient(135deg,#ffb84d,#ffd18a)">О</div><h3>О. Оюунтуяа</h3><p>Англи хэлний багш · IELTS 8.0</p></div>
+      <div class="card"><div class="av" style="background:linear-gradient(135deg,#2bb3a3,#6fd8cb)">Д</div><h3>Д. Дорж</h3><p>Физикийн багш · Олимпиадын дасгалжуулагч</p></div>
+    </div></section>
+
+  <section class="reveal"><h2>Амжилтууд</h2><p class="sub">Манай сурагчдын гавьяа.</p>
+    <div class="grid">
+      <div class="card stat"><b>🥇 24</b><span>олимпиадын медаль</span></div><div class="card stat"><b>96%</b><span>их сургуульд тэнцсэн</span></div>
+      <div class="card stat"><b>12</b><span>улсын тэмцээний ялагч</span></div>
+    </div></section>
+
+  <section id="news" class="reveal"><h2>Сүүлийн мэдээ</h2><p class="sub">Сургуулийн амьдралаас.</p>
+    <div class="grid">
+      <div class="card"><div class="g" style="background:linear-gradient(135deg,#6d4aff55,#ff6bb555)">📝</div><br><h3>Шинэ жилийн бүртгэл эхэллээ</h3><p>1-р ангид элсэх хүүхдийн бүртгэл 10-р сарын 31 хүртэл.</p><span class="chip">10-р сар</span></div>
+      <div class="card"><div class="g" style="background:linear-gradient(135deg,#ffb84d55,#ff6bb555)">🏆</div><br><h3>Олимпиадад байр эзэллээ</h3><p>Математикийн улсын олимпиадад манай 3 сурагч шалгарлаа.</p><span class="chip">9-р сар</span></div>
+      <div class="card"><div class="g" style="background:linear-gradient(135deg,#2bb3a355,#6d4aff55)">👨‍👩‍👧</div><br><h3>Эцэг эхийн хурал</h3><p>Улирлын дүн болон төлөвлөгөөг танилцуулна.</p><span class="chip">9-р сар</span></div>
+    </div></section>
+
+  <section id="events" class="reveal"><h2>Удахгүй болох үйл явдал</h2><p class="sub">Хуанлидаа тэмдэглээрэй.</p>
+    <div class="card ev"><div class="date"><b>15</b><span>10-р сар</span></div><div><h3>Нээлттэй хаалганы өдөр</h3><p>Сургуулиар аялж, багш нартай уулзана.</p></div></div>
+    <div class="card ev"><div class="date"><b>28</b><span>10-р сар</span></div><div><h3>Шинжлэх ухааны үзэсгэлэн</h3><p>Сурагчдын төсөл, туршилт.</p></div></div>
+    <div class="card ev"><div class="date"><b>20</b><span>12-р сар</span></div><div><h3>Шинэ жилийн тоглолт</h3><p>Урлагийн дугуйлангийн тоглолт.</p></div></div>
+  </section>
+
+  <section id="gallery" class="reveal"><h2>Галерей</h2><p class="sub">Манай өдөр тутам.</p>
+    <div class="gal">
+      <div class="g" style="background:linear-gradient(135deg,#6d4aff66,#ff6bb666)">🎨</div><div class="g" style="background:linear-gradient(135deg,#ffb84d66,#6d4aff66)">⚽</div>
+      <div class="g" style="background:linear-gradient(135deg,#2bb3a366,#ffb84d66)">🔬</div><div class="g" style="background:linear-gradient(135deg,#ff6bb566,#ffb84d66)">🎭</div>
+      <div class="g" style="background:linear-gradient(135deg,#6d4aff66,#2bb3a366)">📚</div><div class="g" style="background:linear-gradient(135deg,#ffb84d66,#ff6bb566)">🎵</div>
+    </div></section>
+
+  <section id="faq" class="reveal"><h2>Түгээмэл асуулт</h2><p class="sub">Эцэг эхчүүдээс байнга асуудаг.</p>
+    <details class="card"><summary>Бүртгэлд ямар материал хэрэгтэй вэ?</summary><p>Төрсний гэрчилгээ, эрүүл мэндийн үзлэгийн хуудас, эцэг эхийн иргэний үнэмлэх.</p></details>
+    <details class="card"><summary>Хичээл хэдэн цагт эхэлдэг вэ?</summary><p>Өглөөний ээлж 08:00, орой ээлж 13:30 цагт эхэлнэ.</p></details>
+    <details class="card"><summary>Хоолны үйлчилгээ байдаг уу?</summary><p>Тийм, сургуулийн хоолны газар өдөр бүр халуун хоолоор үйлчилнэ.</p></details>
+  </section>
+
+  <section id="join" class="reveal"><h2 style="text-align:center">Бүртгүүлэх</h2><p class="sub" style="text-align:center">Мэдээллээ оруулаад бүртгэлээ дуусгана уу.</p>
+    <div class="card"><div id="stepReg">
+      <input id="lname" placeholder="Овог" autocomplete="family-name"><input id="name" placeholder="Нэр" autocomplete="given-name">
+      <input id="phone" type="tel" inputmode="numeric" placeholder="Утасны дугаар (8 орон)" autocomplete="tel">
+      <input id="email" type="email" placeholder="Gmail / и-мэйл (жишээ: bat@gmail.com)" autocomplete="email">
+      <input id="addr" placeholder="Гэрийн хаяг (дүүрэг, хороо, байр, тоот)" autocomplete="street-address">
+      <div class="lbl">IT хичээл сонгох <small>(нэг буюу хэд хэдийг сонгож болно)</small></div>
+      <div class="courses">
+        <label><input type="checkbox" name="course" value="Python програмчлал"><span>🐍 Python програмчлал</span></label>
+        <label><input type="checkbox" name="course" value="Веб дизайн"><span>🌐 Веб дизайн</span></label>
+        <label><input type="checkbox" name="course" value="Робот техник"><span>🤖 Робот техник</span></label>
+        <label><input type="checkbox" name="course" value="График дизайн"><span>🎨 График дизайн</span></label>
+        <label><input type="checkbox" name="course" value="Мобайл апп"><span>📱 Мобайл апп</span></label>
+        <label><input type="checkbox" name="course" value="Хиймэл оюун"><span>🧠 Хиймэл оюун</span></label>
+        <label><input type="checkbox" name="course" value="Кибер аюулгүй байдал"><span>🔒 Кибер аюулгүй байдал</span></label>
+        <label><input type="checkbox" name="course" value="Excel, Office"><span>📊 Excel, Office</span></label>
+      </div>
+      <button class="btn" id="regBtn" type="button" style="width:100%">Бүртгүүлэх</button></div><div id="joinMsg"></div></div>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  <div class="cols">
+    <div><div class="logo" style="color:var(--text);margin-bottom:10px"><div class="dot"></div><div style="line-height:1.1">AURORA SCHOOL<br><small style="font-weight:600;font-size:.62rem;color:var(--muted);letter-spacing:.06em">АЛТАН ГАДАС СУРГУУЛЬ</small></div></div>Мэдлэг, хүмүүжил, ирээдүй.</div>
+    <div><h4>Холбоос</h4><a href="#about">Бидний тухай</a><a href="#programs">Хөтөлбөр</a><a href="#news">Мэдээ</a></div>
+    <div><h4>Холбоо барих</h4><a>📍 Улаанбаатар хот</a><a>📞 +976 7000 0000</a><a>✉️ info@school.mn</a></div>
+  </div>
+  <div>© 2026 Aurora School · Алтан Гадас сургууль. Бүх эрх хуулиар хамгаалагдсан.</div>
+</div></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const msg = t => $("joinMsg").textContent = t;
+$("regBtn").onclick = () => {
+  if (!$("lname").value.trim() || !$("name").value.trim()) return msg("Овог, нэрээ оруулна уу.");
+  if (!/^\d{8}$/.test($("phone").value.trim())) return msg("Утас 8 оронтой байх ёстой.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim())) return msg("И-мэйл хаяг буруу байна.");
+  if ($("addr").value.trim().length < 5) return msg("Гэрийн хаягаа дэлгэрэнгүй оруулна уу.");
+  const courses = [...document.querySelectorAll('input[name="course"]:checked')].map(c => c.value);
+  if (!courses.length) return msg("Дор хаяж нэг IT хичээл сонгоно уу.");
+  const data = {courses, lastName:$("lname").value.trim(), firstName:$("name").value.trim(), phone:$("phone").value.trim(), email:$("email").value.trim(), address:$("addr").value.trim()};
+  console.log("Бүртгэл:", data);
+  // Энд fetch("/api/register", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)}) гэж backend руу илгээнэ
+  msg("Амжилттай бүртгэгдлээ 🎉 Сонгосон хичээл: " + courses.join(", "));
+  $("stepReg").classList.add("hidden");
+};
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.1});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
