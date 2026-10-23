@@ -139,23 +139,32 @@ footer h4{color:var(--text);margin:0 0 10px}footer a{display:block;color:var(--m
   </section>
 
   <section id="join" class="reveal"><h2 style="text-align:center">Бүртгүүлэх</h2><p class="sub" style="text-align:center">Мэдээллээ оруулаад бүртгэлээ дуусгана уу.</p>
-    <div class="card"><div id="stepReg">
-      <input id="lname" placeholder="Овог" autocomplete="family-name"><input id="name" placeholder="Нэр" autocomplete="given-name">
-      <input id="phone" type="tel" inputmode="numeric" placeholder="Утасны дугаар (8 орон)" autocomplete="tel">
-      <input id="email" type="email" placeholder="Gmail / и-мэйл (жишээ: bat@gmail.com)" autocomplete="email">
-      <input id="addr" placeholder="Гэрийн хаяг (дүүрэг, хороо, байр, тоот)" autocomplete="street-address">
-      <div class="lbl">IT хичээл сонгох <small>(нэг буюу хэд хэдийг сонгож болно)</small></div>
-      <div class="courses">
-        <label><input type="checkbox" name="course" value="Python програмчлал"><span>🐍 Python програмчлал</span></label>
-        <label><input type="checkbox" name="course" value="Веб дизайн"><span>🌐 Веб дизайн</span></label>
-        <label><input type="checkbox" name="course" value="Робот техник"><span>🤖 Робот техник</span></label>
-        <label><input type="checkbox" name="course" value="График дизайн"><span>🎨 График дизайн</span></label>
-        <label><input type="checkbox" name="course" value="Мобайл апп"><span>📱 Мобайл апп</span></label>
-        <label><input type="checkbox" name="course" value="Хиймэл оюун"><span>🧠 Хиймэл оюун</span></label>
-        <label><input type="checkbox" name="course" value="Кибер аюулгүй байдал"><span>🔒 Кибер аюулгүй байдал</span></label>
-        <label><input type="checkbox" name="course" value="Excel, Office"><span>📊 Excel, Office</span></label>
-      </div>
-      <button class="btn" id="regBtn" type="button" style="width:100%">Бүртгүүлэх</button></div><div id="joinMsg"></div></div>
+    <div class="card">
+      <form id="joinForm" name="school-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="school-registration">
+        <p class="hidden"><label>Энэ талбарыг бөглөхгүй орхино уу: <input name="bot-field"></label></p>
+        <div id="stepReg">
+          <input id="lname" name="lastName" placeholder="Овог" autocomplete="family-name" required>
+          <input id="name" name="firstName" placeholder="Нэр" autocomplete="given-name" required>
+          <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="Утасны дугаар (8 орон)" autocomplete="tel" required>
+          <input id="email" name="email" type="email" placeholder="Gmail / и-мэйл (жишээ: bat@gmail.com)" autocomplete="email" required>
+          <input id="addr" name="address" placeholder="Гэрийн хаяг (дүүрэг, хороо, байр, тоот)" autocomplete="street-address" required>
+          <div class="lbl">IT хичээл сонгох <small>(нэг буюу хэд хэдийг сонгож болно)</small></div>
+          <div class="courses">
+            <label><input type="checkbox" name="courses" value="Python програмчлал"><span>🐍 Python програмчлал</span></label>
+            <label><input type="checkbox" name="courses" value="Веб дизайн"><span>🌐 Веб дизайн</span></label>
+            <label><input type="checkbox" name="courses" value="Робот техник"><span>🤖 Робот техник</span></label>
+            <label><input type="checkbox" name="courses" value="График дизайн"><span>🎨 График дизайн</span></label>
+            <label><input type="checkbox" name="courses" value="Мобайл апп"><span>📱 Мобайл апп</span></label>
+            <label><input type="checkbox" name="courses" value="Хиймэл оюун"><span>🧠 Хиймэл оюун</span></label>
+            <label><input type="checkbox" name="courses" value="Кибер аюулгүй байдал"><span>🔒 Кибер аюулгүй байдал</span></label>
+            <label><input type="checkbox" name="courses" value="Excel, Office"><span>📊 Excel, Office</span></label>
+          </div>
+          <button class="btn" id="regBtn" type="submit" style="width:100%">Бүртгүүлэх</button>
+        </div>
+      </form>
+      <div id="joinMsg" role="status" aria-live="polite"></div>
+    </div>
   </section>
 </div>
 
@@ -170,20 +179,60 @@ footer h4{color:var(--text);margin:0 0 10px}footer a{display:block;color:var(--m
 
 <script>
 const $ = id => document.getElementById(id);
+const form = $("joinForm");
 const msg = t => $("joinMsg").textContent = t;
-$("regBtn").onclick = () => {
-  if (!$("lname").value.trim() || !$("name").value.trim()) return msg("Овог, нэрээ оруулна уу.");
-  if (!/^\d{8}$/.test($("phone").value.trim())) return msg("Утас 8 оронтой байх ёстой.");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim())) return msg("И-мэйл хаяг буруу байна.");
-  if ($("addr").value.trim().length < 5) return msg("Гэрийн хаягаа дэлгэрэнгүй оруулна уу.");
-  const courses = [...document.querySelectorAll('input[name="course"]:checked')].map(c => c.value);
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!$("lname").value.trim() || !$("name").value.trim()) {
+    return msg("Овог, нэрээ оруулна уу.");
+  }
+  const phoneInput = $("phone").value.trim();
+  const phoneDigits = phoneInput.replace(/\D/g, "");
+  if (!/^\d{8}$/.test(phoneDigits)) {
+    return msg("Утасны дугаар 8 оронтой байх ёстой. Зөвхөн 8 цифр оруулна уу.");
+  }
+  $("phone").value = phoneDigits;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim())) {
+    return msg("И-мэйл хаяг буруу байна.");
+  }
+  if ($("addr").value.trim().length < 5) {
+    return msg("Гэрийн хаягаа дэлгэрэнгүй оруулна уу.");
+  }
+
+  const courses = [...form.querySelectorAll('input[name="courses"]:checked')].map(c => c.value);
   if (!courses.length) return msg("Дор хаяж нэг IT хичээл сонгоно уу.");
-  const data = {courses, lastName:$("lname").value.trim(), firstName:$("name").value.trim(), phone:$("phone").value.trim(), email:$("email").value.trim(), address:$("addr").value.trim()};
-  console.log("Бүртгэл:", data);
-  // Энд fetch("/api/register", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)}) гэж backend руу илгээнэ
-  msg("Амжилттай бүртгэгдлээ 🎉 Сонгосон хичээл: " + courses.join(", "));
-  $("stepReg").classList.add("hidden");
-};
+
+  const button = $("regBtn");
+  button.disabled = true;
+  button.textContent = "Илгээж байна...";
+  msg("");
+
+  try {
+    // Netlify Forms нь form-urlencoded өгөгдлийг хүлээн авна.
+    const formData = new FormData(form);
+    const encoded = new URLSearchParams();
+    for (const [key, value] of formData.entries()) encoded.append(key, value);
+
+    const response = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encoded.toString()
+    });
+
+    if (!response.ok) throw new Error("Netlify Forms хүсэлт амжилтгүй боллоо.");
+
+    msg("Амжилттай бүртгэгдлээ 🎉 Таны мэдээлэл сургуульд илгээгдлээ. Сонгосон хичээл: " + courses.join(", "));
+    $("stepReg").classList.add("hidden");
+    form.reset();
+  } catch (error) {
+    console.error("Бүртгэл илгээхэд алдаа гарлаа:", error);
+    msg("Мэдээлэл илгээж чадсангүй. Интернетээ шалгаад дахин оролдоно уу.");
+    button.disabled = false;
+    button.textContent = "Бүртгүүлэх";
+  }
+});
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.1});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 </script>
