@@ -2,9 +2,13 @@
 <html lang="mn">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="language" content="Mongolian">
 <title>Aurora School · Алтан Гадас сургууль</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
@@ -88,7 +92,7 @@ footer h4{color:var(--text);margin:0 0 10px}footer a{display:block;color:var(--m
     <div class="grid">
       <div class="card"><div class="icon">🎯</div><h3>Эрхэм зорилго</h3><p>Чанартай боловсрол олгож, сурагч бүрийг хөгжүүлэх.</p></div>
       <div class="card"><div class="icon">👁️</div><h3>Алсын хараа</h3><p>Монголдоо тэргүүлэх, олон улсад өрсөлдөх сургууль болох.</p></div>
-      <div class="card"><div class="icon">💎</div><h3>Үнэт зүйл</h3><p>Хүндлэл, шудрага байдал, хамтын ажиллагаа, сурах хүсэл.</p></div>
+      <div class="card"><div class="icon">💎</div><h3>Үнэт зүйл</h3><p>Хүндлэл, шударга байдал, хамтын ажиллагаа, сурах хүсэл.</p></div>
     </div></section>
 
   <section id="programs" class="reveal"><h2>Хөтөлбөр</h2><p class="sub">Насны онцлогт тохирсон гурван шат.</p>
@@ -210,14 +214,13 @@ form.addEventListener("submit", async event => {
   msg("");
 
   try {
-    // Netlify Forms нь form-urlencoded өгөгдлийг хүлээн авна.
     const formData = new FormData(form);
     const encoded = new URLSearchParams();
     for (const [key, value] of formData.entries()) encoded.append(key, value);
 
     const response = await fetch("/", {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
       body: encoded.toString()
     });
 
@@ -233,7 +236,13 @@ form.addEventListener("submit", async event => {
     button.textContent = "Бүртгүүлэх";
   }
 });
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.1});
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) {
+    e.target.classList.add("in");
+    io.unobserve(e.target);
+  }
+}), {threshold:.1});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 </script>
 </body>
